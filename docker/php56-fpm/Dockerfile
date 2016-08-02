@@ -20,5 +20,6 @@ ADD ./php.ini /usr/local/etc/php/
 RUN usermod -u 1000 www-data  
 RUN usermod -a -G users www-data
 
+WORKDIR /var/www/
 CMD ["php-fpm"]
 EXPOSE 9000 
