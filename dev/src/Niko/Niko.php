@@ -24,12 +24,12 @@ class Niko
             throw new NikoException("Error Sending Command", 1);
         }
 
-        sleep(1); // Beurk.
-
         $response = '';
-        while (0 != socket_recv($this->socket, $out, 4096, MSG_DONTWAIT)) {
-            $response .= $out;
-        };
+        do {
+            $bytes = socket_recv($this->socket, $out, 256, 0);
+            $response .= trim($out);
+        }
+        while ($bytes == 0 || $bytes == 256);
 
         return $response;
     }
@@ -48,7 +48,7 @@ class Niko
         }
     }
 
-    // ------------------------------------------------------------------------
+    // ---------------------------------------------------------------------
 
     public function getInformations()
     {
@@ -88,10 +88,6 @@ class Niko
 
             return $location;
         }, $locations);
-    }
-
-    public function testAction()
-    {
 
     }
 }
