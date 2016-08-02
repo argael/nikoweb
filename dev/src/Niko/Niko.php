@@ -1,7 +1,7 @@
 <?php
 namespace Niko;
 
-use Niko\NikoException\NikoException;
+use Niko\Exception\NikoException;
 
 class Niko
 {
@@ -50,6 +50,11 @@ class Niko
 
     // ------------------------------------------------------------------------
 
+    public function getInformations()
+    {
+        return $this->sendCommand(['cmd' => 'systeminfo']);
+    }
+
     public function getLocations()
     {
         return $this->sendCommand(['cmd' => 'listlocations']);
@@ -83,5 +88,10 @@ class Niko
 
             return $location;
         }, $locations);
+    }
+
+    public function testAction()
+    {
+
     }
 }
