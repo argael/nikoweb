@@ -4,9 +4,14 @@ namespace App;
 use Silex\Application;
 use Silex\Provider\TwigServiceProvider;
 
+use Niko\Niko;
+
 // --------------------------------------------------------------------------------------------------------------------
 
+$config = require_once ROOT_DIR . '/datas/config.php';
+
 $app = new Application();
+$niko = new Niko($config['nhc']['address'] ?: '10.0.0.30', $config['nhc']['port'] ?: 8000);
 
 // --------------------------------------------------------------------------------------------------------------------
 
