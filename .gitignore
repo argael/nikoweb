@@ -1,0 +1,19 @@
+# OSX
+.DS_Store
+._*
+
+# PhpStorm
+.idea
+
+# Sublime Text
+*.sublime-*
+
+# Docker
+docker-compose.yml
+
+# Composer
+dev/public/vendor
+vagrant/vendor
+
+# NPM
+node_modules/
