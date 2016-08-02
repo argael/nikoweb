@@ -6,8 +6,10 @@ namespace App\Controllers;
  *
  * @var \Silex\Application $app
  */
-$app->get('/debug', function () use ($app) {
-    return $app['twig']->render('debug.html.twig', [
+
+
+$app->get('/', function () use ($app) {
+    return $app['twig']->render('index.html.twig', [
         'testdate' => date('c')
     ]);
 });
