@@ -1,4 +1,4 @@
 <?php
-Namespace Niko\NikoException;
+namespace Niko\NikoException;
 
 class NikoException extends \Exception {}

@@ -1,5 +1,5 @@
 <?php
-Namespace Niko;
+namespace Niko;
 
 use Niko\NikoException\NikoException;
 
