@@ -1,5 +1,7 @@
 # Protocol NHC
 
+> Cette mini-documentation est basée sur le WIKI de [jaader](https://github.com/jaader/PortailNHC).
+
 Les communications entre l'app et l'interface sont codée en JSON.
 
 1. Récupération des infos sur le système : `systeminfo`
@@ -35,9 +37,15 @@ Les communications entre l'app et l'interface sont codée en JSON.
         SOCKET-OUT: {"cmd":"executeactions", "id":0,"value1":0}
         SOCKET-IN: {"cmd":"executeactions","data":{"error":0}}
 
+5. Utilisation de Dimmer (type 1)
+
+    _Le dimmer fonctionne comme le switch simple mais la `valeur1` peut varier de 0 à 100._
+
+        SOCKET-OUT: {"cmd":"executeactions", "id":0,"value1":40}  <-- Définir l'intensité à 40%
+
 ---
 
-Autres commandes a documenter
+## Autres commandes a documenter
 
 * listthermostat
 * listthermostatHVAC
