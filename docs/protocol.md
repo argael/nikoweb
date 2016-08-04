@@ -23,6 +23,7 @@ Les communications entre l'app et l'interface sont codée en JSON.
 
     * 0 démarrage mais pas de d'arrêt (scénarios)
     * 1 on/off
+    * 2 dimmer
     * 4 volet/moteur
 
 ---

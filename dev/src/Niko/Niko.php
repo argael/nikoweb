@@ -159,12 +159,40 @@ class Niko
     {
         $action = $this->getAction($id);
         if ($action) {
-            $value = ($value < 0 && $action['type'] == 1)
-                ? ($action['value1'] > 0) ? 0 : 100
-                : min(100, max(0, $value));
+            if($value < 0) {
+                $value = ($action['value1'] > 0) ? 0 : 100;
+            }
+
+            switch($action['type']) {
+                case 0:
+                    $value = 1; break;
+
+                // On / Off
+                case 1:
+                    $value = min(1, max(0, $value));
+                    break;
+
+                // Dimmer
+                case 2:
+                    if($action['value1'] < 1) {
+                        $value = 1;
+                    }
+                    elseif($action['value1'] < 100) {
+                        $value = min(100, floor(1 + $action['value1']/10) * 10);
+                    }
+                    else {
+                        $value = 0;
+                    }
+                    break;
+
+                // Shutter
+                case 4:
+                    $value = min(100, max(0, $value));
+                    break;
+            }
 
             $response = $this->sendCommand('executeactions', ['id' => $id, 'value1' => $value]);
-            return ($response && $response['error'] == 0);
+            return ($response && $response['error'] == 0) ? $value : false;
         }
 
         return false;

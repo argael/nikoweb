@@ -16,11 +16,10 @@ $app->get('/action/{id}/{value}', function ($id, $value=null) use ($app) {
     $niko = $app['niko']; /* @var \Niko\Niko $niko */
 
     $action = $niko->getAction($id);
-    $action['value1'] = $niko->setAction($id, $value)
-        ? $value
-        : false;
+    $action['value1'] = $niko->setAction($id, $value);
 
-    return sprintf('<pre>%s</pre>', print_r($action ?: false, true));
+    return $app->json($action);
+
 })
   ->value('value', -1)
   ->bind('actions.run');
