@@ -17,7 +17,7 @@ class Niko
      * @param int $port
      * @throws NikoException
      */
-    private function __construct($address, $port=8000)
+    private function __construct($address, $port=8000, $options=[])
     {
         if (false === ($this->socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP))) {
             throw new NikoException("Error Creating Socket", 1);
@@ -27,7 +27,7 @@ class Niko
             throw new NikoException("Error Connecting Socket", 1);
         }
 
-        $this->initNhc();
+        $this->initNhc($options);
     }
 
     /**
@@ -38,10 +38,10 @@ class Niko
      *
      * @return Niko
      */
-    public static function load($address, $port=8000)
+    public static function load($address, $port=8000, $options=[])
     {
         if(!self::$instance) {
-            self::$instance = new self($address, $port);
+            self::$instance = new self($address, $port, $options);
         }
         return self::$instance;
     }
@@ -88,6 +88,12 @@ class Niko
         return $datas['data'];
     }
 
+    public function testCommand($command, $options=[])
+    {
+        $command = json_encode(array_merge(['cmd' => $command], $options));
+        echo '<pre>', print_r($this->send($command), true), '</pre>'; exit;
+    }
+
     /**
      * Close the connection to NHC
      */
@@ -98,24 +104,27 @@ class Niko
         }
     }
 
-    public function initNhc()
+    public function initNhc($options=[])
     {
         $nhcLocations = $this->sendCommand('listlocations');
         $nhcActions = $this->sendCommand('listactions');
 
-        $this->nhc = array_reduce($nhcLocations, function($locations, $location) use ($nhcActions) {
+        $this->nhc = array_reduce($nhcLocations, function($locations, $location) use ($nhcActions, $options) {
             $locations[ $location['id'] ] = array_merge(
                 $location,
-                ['actions' => array_reduce($nhcActions, function($actions, $action) use ($location) {
+                $options['locations'][$location['id']] ?: [],
+                ['actions' => array_reduce($nhcActions, function($actions, $action) use ($location, $options) {
                     if ($action['location'] == $location['id']) {
-                        $actions[ $action['id'] ] = $action;
+                        $actions[ $action['id'] ] = array_merge(
+                            $action,
+                            $options['actions'][$action['id']] ?: []
+                        );
                     }
                     return $actions;
                 })]
             );
             return $locations;
         }, []);
-
     }
 
     public function toArray()
