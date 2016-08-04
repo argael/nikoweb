@@ -8,15 +8,17 @@
   {% for location in locations %}{% if location.actions  %}<div class="panel panel-default">
     <div class="panel-heading" role="tab" id="headingOne">
         <a class="panel-title" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ location.id }}" aria-expanded="false" aria-controls="collapse{{ location.id }}">
-          <i class="fa fa-{{ location.icon|default('bars') }}"></i> {{ location.name }}
+          <i class="{{ location.icon|default('fa fa-bars') }}"></i> {{ location.name }}
         </a>
     </div>
     <div id="collapse{{ location.id }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
       <div class="panel-body">
         {% for action in location.actions %}
-          <a href="./action/{{ action.id }}" class="btn btn-{{ action.value1 ? 'primary':'default'}} js-action">
-            <i class="fa fa-{{ action.icon|default('lightbulb-o') }}"></i>
+          <a href="./action/{{ action.id }}" class="btn {{ action.value1 ? 'btn-warning':'btn-default'}} js-action">
+            <i class="{{ action.icon|default('fa fa-lightbulb-o') }}"></i>
             {{ action.name }}
+            {% if action.type == 2 %}<span class="badge">{{ action.value1 }}</span>
+            {% endif %}
           </a>
         {% endfor %}
       </div>

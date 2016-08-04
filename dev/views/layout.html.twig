@@ -23,7 +23,22 @@
       $(function() {
         $('.js-action').on('click', function(e) {
           e.preventDefault();
-          $.get( $(this).attr('href') );
+          var $button = $(this);
+
+          $.get( $button.attr('href'), function(data) {
+            if (data.value1 > 0) {
+              $button.removeClass('btn-default');
+              $button.addClass('btn-warning');
+            }
+            else {
+              $button.removeClass('btn-warning');
+              $button.addClass('btn-default');
+            }
+
+            if(data.type == 2) {
+              $('.badge', $button).text(data.value1);
+            }
+          } );
           return false;
         });
       });
