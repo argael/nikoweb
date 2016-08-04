@@ -10,13 +10,6 @@ $app->get('/', function () use ($app) {
 })->bind('homepage');
 
 /**
- * DEBUG - Retrieve all availables actions by locations
- */
-$app->get('/actions', function () use ($app) {
-    return sprintf('<pre>%s</pre>', print_r($app['niko']->allActions(), true));
-})->bind('actions.list');;
-
-/**
  * Get actions status or execute it according the value
  */
 $app->get('/action/{id}/{value}', function ($id, $value=null) use ($app) {
@@ -31,3 +24,16 @@ $app->get('/action/{id}/{value}', function ($id, $value=null) use ($app) {
 })
   ->value('value', -1)
   ->bind('actions.run');
+
+// --------------------------------------------------------------------------------------------------------------------
+
+/**
+ * DEBUG - Retrieve all availables actions by locations
+ */
+$app->get('/actions', function () use ($app) {
+    return sprintf('<pre>%s</pre>', print_r($app['niko']->toArray(), true));
+});
+
+$app->get('/test', function () use ($app) {
+    $app['niko']->testCommand('getmsgs');
+});
