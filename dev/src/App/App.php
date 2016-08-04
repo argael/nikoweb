@@ -8,10 +8,9 @@ use Niko\Niko;
 
 // --------------------------------------------------------------------------------------------------------------------
 
-$config = require_once ROOT_DIR . '/datas/config.php';
 
 $app = new Application();
-$niko = new Niko($config['nhc']['address'] ?: '10.0.0.30', $config['nhc']['port'] ?: 8000);
+$app['debug'] = true;
 
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -26,8 +25,11 @@ $app->register(new TwigServiceProvider(), [
 
 // --------------------------------------------------------------------------------------------------------------------
 
+require_once ROOT_DIR . '/src/App/Middleware/BeforeMiddleware.php';
+
 require_once ROOT_DIR . '/src/App/Controllers/ControllerPublic.php';
 
+require_once ROOT_DIR . '/src/App/Middleware/AfterMiddleware.php';
 // --------------------------------------------------------------------------------------------------------------------
 
 $app->run();

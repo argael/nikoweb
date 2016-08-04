@@ -4,5 +4,18 @@
 
 {% block content %}
   <h1>NikoWeb - NHC Web Interface</h1>
-  <p>Content : {{ testdate }}</p>
+
+  <ul>
+    {% for location in locations %}{% if location.actions  %}<li>
+      <h2>{{ location.name }}</h2>
+      <ul class="nav nav-pills nav-stacked">
+        {% for action in location.actions %}<li>
+          <a href="./action/{{ action.id }}">{{ action.name }}</a>
+        </li>
+        {% endfor %}
+      </ul>
+
+    </li>
+    {% endif %}{% endfor %}
+  </ul>
 {% endblock %}
