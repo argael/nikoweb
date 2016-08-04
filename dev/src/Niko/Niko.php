@@ -130,34 +130,34 @@ class Niko
         return $this->sendCommand('systeminfo');
     }
 
-    public function setAction($id, $value = 0)
-    {
-        return $this->sendCommand('executeactions', ['id' => $id, 'value1' => $value]);
-    }
-
-    public function getActions()
+    public function allActions()
     {
         $actions = [];
         array_walk($this->nhc, function($location) use (&$actions) {
-            $actions = array_merge($actions, $location['actions'] ?: []);
+            $actions += $location['actions'] ?: [];
         });
 
         return $actions;
     }
 
-    // ------------------------------------------------------------------------
-
-    public function getLocationActions()
+    public function getAction($id)
     {
-        $locations = $this->getLocations();
-        $actions = $this->getActions();
+        $actions = $this->allActions();
+        return isset($actions[$id]) ? $actions[$id] : false;
+    }
 
-        return array_map(function($location) use ($actions) {
-            $location['actions'] = array_filter($actions, function($action) use ($location) {
-                return ($action['location'] == $location['id']);
-            });
+    public function setAction($id, $value = 0)
+    {
+        $action = $this->getAction($id);
+        if ($action) {
+            $value = ($value < 0 && $action['type'] == 1)
+                ? ($action['value1'] > 0) ? 0 : 100
+                : min(100, max(0, $value));
 
-            return $location;
-        }, $locations);
+            $response = $this->sendCommand('executeactions', ['id' => $id, 'value1' => $value]);
+            return ($response && $response['error'] == 0);
+        }
+
+        return false;
     }
 }
