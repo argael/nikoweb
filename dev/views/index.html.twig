@@ -1,21 +1,27 @@
 {% extends "layout.html.twig" %}
 
-{% block title %}NikoWeb - NHC Web Interface{% endblock %}
+{% block title %}NHC Web Interface{% endblock %}
 
 {% block content %}
-  <h1>NikoWeb - NHC Web Interface</h1>
-
-  <ul>
-    {% for location in locations %}{% if location.actions  %}<li>
-      <h2>{{ location.name }}</h2>
-      <ul class="nav nav-pills nav-stacked">
-        {% for action in location.actions %}<li>
-          <a href="./action/{{ action.id }}">{{ action.name }}</a>
-        </li>
+  <p></p>
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  {% for location in locations %}{% if location.actions  %}<div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingOne">
+        <a class="panel-title" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ location.id }}" aria-expanded="false" aria-controls="collapse{{ location.id }}">
+          <i class="fa fa-{{ location.icon|default('bars') }}"></i> {{ location.name }}
+        </a>
+    </div>
+    <div id="collapse{{ location.id }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body">
+        {% for action in location.actions %}
+          <a href="./action/{{ action.id }}" class="btn btn-{{ action.value1 ? 'primary':'default'}} js-action">
+            <i class="fa fa-{{ action.icon|default('lightbulb-o') }}"></i>
+            {{ action.name }}
+          </a>
         {% endfor %}
-      </ul>
-
-    </li>
-    {% endif %}{% endfor %}
-  </ul>
+      </div>
+    </div>
+  </div>
+  {% endif %}{% endfor %}
+</div>
 {% endblock %}
