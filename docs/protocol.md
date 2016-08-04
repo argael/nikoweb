@@ -43,12 +43,16 @@ Les communications entre l'app et l'interface sont codée en JSON.
 
         SOCKET-OUT: {"cmd":"executeactions", "id":0,"value1":40}  <-- Définir l'intensité à 40%
 
+6. Récuper les messages "Alarme"
+
+        SOCKET-OUT: {"cmd":"getalarms"}
+        SOCKET-IN: {"cmd":"getalarms","data":{id: 4,type: 0,date: "20160728212809",text: "Mode Nuit désactivé.",confirmed: 1},{id: 3,type: 1,date: "20160728212806",text: "Mode Nuit activé",confirmed: 0},}
+
 ---
 
 ## Autres commandes a documenter
 
 * listthermostat
 * listthermostatHVAC
-* startevents
-* readtariffdata
-* getalarms
+* startevents : permet de démarrer un scenario ?
+* readtariffdata : recuperer la liste des alarmes
