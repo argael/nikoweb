@@ -1,12 +1,18 @@
-# Web interface for Niko Home Control (NHC)
+# Web interface for Controller Home Control (NHC)
 
-> WIP use it at you own risk.
+> **Warning WIP !** Use it at you own risk.
 
 This project is a remastering of [jaader/PortailNHC](https://github.com/jaader/PortailNHC).
 
-It's a web interface that control [Niko Home Control](http://www.niko.eu/frbe/niko/nhc-landingspage) electrical installation.
+It's a web interface that control [Controller Home Control](http://www.niko.eu/frbe/niko/nhc-landingspage) electrical installation.
 
 ![Screenshot](docs/files/screenshot.png) 
  
-For exemple you can install this application on a Raspberry PI connected to your local network.
+## Usage
 
+From the project root folder :
+
+* **PHP Serv** : Use the interal PHP server with `php -S 0.0.0.0:8080 -t dev/public` 
+* **Docker** : you can use `docker-compose start` from the project root folder.
+
+For exemple you can install this application on a Raspberry PI connected to your local network.
