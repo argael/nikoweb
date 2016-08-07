@@ -1,7 +1,7 @@
 <?php
 namespace Niko;
 
-use Niko\Exception\NikoException;
+use Niko\Exception\ControllerException;
 
 class Controller
 {
@@ -15,16 +15,21 @@ class Controller
      *
      * @param string $address
      * @param int $port
-     * @throws NikoException
+     *
+*@throws ControllerException
      */
     private function __construct($address, $port=8000, $options=[])
     {
+        if (!$address) {
+            throw new ControllerException("No address specified.", 1);
+        }
+
         if (false === ($this->socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP))) {
-            throw new NikoException("Error Creating Socket", 1);
+            throw new ControllerException("Unable to create the socket", 1);
         }
 
         if (false === socket_connect($this->socket, $address, $port)) {
-            throw new NikoException("Error Connecting Socket", 1);
+            throw new ControllerException("Unable to connect the socket", 1);
         }
 
         $this->initNhc($options);
@@ -38,7 +43,7 @@ class Controller
      *
      * @return Controller
      */
-    public static function load($address, $port=8000, $options=[])
+    public static function load($address=null, $port=8000, $options=[])
     {
         if(!self::$instance) {
             self::$instance = new self($address, $port, $options);
@@ -54,12 +59,12 @@ class Controller
      * @param $message
      *
      * @return string
-     * @throws NikoException
+     * @throws ControllerException
      */
     protected function send($message)
     {
         if (false === socket_write($this->socket, $message, strlen($message))) {
-            throw new NikoException("Error Sending Command", 1);
+            throw new ControllerException("Error Sending Command", 1);
         }
 
         $response = '';
@@ -79,7 +84,7 @@ class Controller
      * @param array $options
      *
      * @return mixed
-     * @throws NikoException
+     * @throws ControllerException
      */
     protected function sendCommand($command, $options=[])
     {
