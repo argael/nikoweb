@@ -4,7 +4,7 @@ namespace App;
 use Silex\Application;
 use Silex\Provider\TwigServiceProvider;
 
-use Niko\Niko;
+use Niko\Controller;
 
 // --------------------------------------------------------------------------------------------------------------------
 

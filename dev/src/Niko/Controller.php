@@ -3,7 +3,7 @@ namespace Niko;
 
 use Niko\Exception\NikoException;
 
-class Niko
+class Controller
 {
     protected static $instance;
     protected $socket;
@@ -11,7 +11,7 @@ class Niko
     protected $nhc;
 
     /**
-     * Niko constructor.
+     * Controller constructor.
      *
      * @param string $address
      * @param int $port
@@ -36,7 +36,7 @@ class Niko
      * @param string $address
      * @param int $port
      *
-     * @return Niko
+     * @return Controller
      */
     public static function load($address, $port=8000, $options=[])
     {

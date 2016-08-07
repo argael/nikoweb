@@ -2,10 +2,9 @@
 namespace App;
 /**
  * @var \Silex\Application $app
- * @var \Niko\Niko $niko
  */
 
-use Niko\Niko;
+use \Niko\Controller;
 use \Symfony\Component\HttpFoundation\Request;
 use \Silex\Application;
 
@@ -15,7 +14,7 @@ $app->before(function(Request $request, Application $app)  {
     };
 
     $app['niko'] = function ($app) {
-        return Niko::load(
+        return Controller::load(
             $app['app.config']['nhc']['address'] ?: '10.0.0.30',
             $app['app.config']['nhc']['port'] ?: 8000,
             $app['app.config']

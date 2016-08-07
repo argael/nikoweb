@@ -4,7 +4,7 @@ namespace Niko;
 use Niko\Niko;
 use Niko\Exception\NikoActionException;
 
-class NikoAction
+class Action
 {
     const ACTION_STORY = 0;
     const ACTION_SWITCH = 1;
