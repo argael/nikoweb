@@ -8,7 +8,11 @@ namespace App\Controllers;
  * Application Home - display the list of locations and actions
  */
 $app->get('/', function () use ($app) {
-    return $app['twig']->render('index.html.twig', ['locations' => $app['niko']->toArray()]);
+    $niko = $app['niko']; /* @var \Niko\Controller $niko */
+
+    return $app['twig']->render('index.html.twig', [
+        'locations' => $niko->toArray()
+    ]);
 })->bind('homepage');
 
 /**
@@ -21,7 +25,6 @@ $app->get('/action/{id}/{value}', function ($id, $value=null) use ($app) {
     $action['value1'] = $niko->setAction($id, $value);
 
     return $app->json($action);
-
 })
   ->value('value', -1)
   ->bind('actions.run');

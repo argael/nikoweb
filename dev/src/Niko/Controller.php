@@ -117,6 +117,11 @@ class Controller
         }
     }
 
+    /**
+     * Create a nested array with "locations" and "actions" from NHC
+     *
+     * @param array $options
+     */
     public function initNhc($options=[])
     {
         $nhcLocations = $this->sendCommand('listlocations');
