@@ -1,0 +1,18 @@
+web:
+  build: docker/nginx
+  volumes:
+    - "./dev:/var/www"
+  ports:
+    - "80"
+    - "443"
+  links:
+    - "php:php"
+  environment:
+    - "VIRTUAL_HOST=nikoweb.dok"
+
+php:
+  build: docker/php7-fpm
+  volumes:
+    - "./dev:/var/www"
+  ports:
+    - "9000"
