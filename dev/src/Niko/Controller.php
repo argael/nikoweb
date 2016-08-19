@@ -3,11 +3,17 @@ namespace Niko;
 
 use Niko\Exception\ControllerException;
 
+// --------------------------------------------------------------------------------------------------------------------
+
+/**
+ * NHC Controller Class
+ *
+ * @package Niko
+ */
 class Controller
 {
     protected static $instance;
     protected $socket;
-
     protected $nhc;
 
     /**
@@ -15,8 +21,9 @@ class Controller
      *
      * @param string $address
      * @param int $port
+     * @param array $options
      *
-*@throws ControllerException
+     * @throws ControllerException
      */
     private function __construct($address, $port=8000, $options=[])
     {
@@ -40,6 +47,7 @@ class Controller
      *
      * @param string $address
      * @param int $port
+     * @param array $options
      *
      * @return Controller
      */
