@@ -1,8 +1,15 @@
 <?php return [
+    /**
+     * NHC Module access
+     */
     'nhc' => [
         'address' => '10.0.0.30',
         'port' => 8000
     ],
+
+    /**
+     * Use to extend the "Locations" grabbed from NHC (with icon and more)
+     */
     'locations' => [
         1 => ['icon' => 'glyphicon glyphicon-tree-deciduous'],
         2 => ['icon' => 'fa fa-home'],
@@ -15,6 +22,10 @@
         12 => ['icon' => 'fa fa-book'],
         14 => ['icon' => 'fa fa-terminal'],
     ],
+
+    /**
+     * Use to extend the "Actions" grabbed from NHC (with icon and more)
+     */
     'actions' => [
         4 => ['icon' => 'glyphicon glyphicon-lamp', 'name' => 'Lampe'],
         3 => ['icon' => 'fa fa-plug', 'name' => 'Prise'],

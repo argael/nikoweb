@@ -3,6 +3,8 @@ namespace Niko;
 
 use Niko\Exception\ControllerException;
 
+// --------------------------------------------------------------------------------------------------------------------
+
 class Action
 {
     const ACTION_STORY = 0;

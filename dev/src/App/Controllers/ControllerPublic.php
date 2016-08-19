@@ -1,16 +1,18 @@
 <?php
 namespace App\Controllers;
 
-/**
- * @var \Silex\Application $app
- */
+// --------------------------------------------------------------------------------------------------------------------
+/* @var \Silex\Application $app */
 
+/**
+ * Application Home - display the list of locations and actions
+ */
 $app->get('/', function () use ($app) {
     return $app['twig']->render('index.html.twig', ['locations' => $app['niko']->toArray()]);
 })->bind('homepage');
 
 /**
- * Get actions status or execute it according the value
+ * Get actions status or execute it, according the presence of a value
  */
 $app->get('/action/{id}/{value}', function ($id, $value=null) use ($app) {
     $niko = $app['niko']; /* @var \Niko\Controller $niko */
@@ -33,6 +35,9 @@ $app->get('/actions', function () use ($app) {
     return sprintf('<pre>%s</pre>', print_r($app['niko']->allActions(), true));
 });
 
+/**
+ * DEBUG - Execute action
+ */
 $app->get('/test', function () use ($app) {
     $app['niko']->testCommand('getmsgs');
 });
