@@ -1,18 +1,17 @@
-web:
-  build: docker/nginx
-  volumes:
-    - "./dev:/var/www"
-  ports:
-    - "80"
-    - "443"
-  links:
-    - "php:php"
-  environment:
-    - "VIRTUAL_HOST=nikoweb.dok"
+version: "2"
 
-php:
-  build: docker/php7-fpm
-  volumes:
-    - "./dev:/var/www"
-  ports:
-    - "9000"
+services:
+  database:
+    image: dogstudio/mariadb
+    ports:
+      - "3306:3306"
+
+  web:
+    image: dogstudio/php:5.6-apache
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - "./dev/public:/var/www/public"
+      - "./cut:/var/www/cut"
+      - "./database:/var/www/database"
