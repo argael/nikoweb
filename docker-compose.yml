@@ -1,11 +1,6 @@
 version: "2"
 
 services:
-  database:
-    image: dogstudio/mariadb
-    ports:
-      - "3306:3306"
-
   web:
     image: dogstudio/nginx
     ports:
@@ -19,4 +14,4 @@ services:
     ports:
       - "9000:9000"
     volumes:
-          - "./dev:/var/www/dev"
+      - "./dev:/var/www/dev"
