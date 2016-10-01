@@ -134,21 +134,25 @@ class Controller
         $nhcActions = $this->sendCommand('listactions');
 
         $this->nhc = array_reduce($nhcLocations, function($locations, $location) use ($nhcActions, $options) {
-            $locations[ $location['id'] ] = array_merge(
-                $location,
-                $options['locations'][$location['id']] ?: [],
-                ['actions' => array_reduce($nhcActions, function($actions, $action) use ($location, $options) {
-                    if ($action['location'] == $location['id']) {
-                        $action['value'] = $action['value1'];
+            if(!$options['locations'][$location['id']]['exclude']) {
+                $locations[ $location['id'] ] = array_merge(
+                    $location,
+                    $options['locations'][$location['id']] ?: [],
+                    ['actions' => array_reduce($nhcActions, function($actions, $action) use ($location, $options) {
+                        if(!$options['actions'][ $action['id'] ]['exclude']) {
+                            if ($action['location'] == $location['id']) {
+                                $action['value'] = $action['value1'];
 
-                        $actions[ $action['id'] ] = array_merge(
-                            $action,
-                            $options['actions'][$action['id']] ?: []
-                        );
-                    }
-                    return $actions;
-                })]
-            );
+                                $actions[ $action['id'] ] = array_merge(
+                                    $action,
+                                    $options['actions'][$action['id']] ?: []
+                                );
+                            }
+                        }
+                        return $actions;
+                    })]
+                );
+            }
             return $locations;
         }, []);
     }

@@ -17,10 +17,10 @@
         6 => ['icon' => 'fa fa-heart'],
         7 => ['icon' => 'fa fa-bed'],
         8 => ['icon' => 'fa fa-bed'],
-        9 => ['icon' => 'fa fa-star'],
+        9 => ['icon' => 'fa fa-moon-o', 'exclude' => true],
         11 => ['icon' => 'fa fa-briefcase'],
         12 => ['icon' => 'fa fa-book'],
-        14 => ['icon' => 'fa fa-terminal'],
+        14 => ['icon' => 'fa fa-calendar-check-o'],
     ],
 
     /**
@@ -32,5 +32,6 @@
         10 => ['icon' => 'fa fa-moon-o'],
         11 => ['icon' => 'glyphicon glyphicon-align-justify'],
         13 => ['icon' => 'glyphicon glyphicon-align-justify'],
+        31 => ['exclude' => true],
     ]
 ];
