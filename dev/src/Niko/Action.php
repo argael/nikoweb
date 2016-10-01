@@ -12,21 +12,16 @@ class Action
     const ACTION_DIMMER = 2;
     const ACTION_SHUTTER = 4;
 
-    public $id;
-    public $name;
-    public $icon;
-    public $type;
-    public $location;
-    public $value;
+    public $id = 0;
+    public $name = 'n.c.';
+    public $icon = '';
+    public $type = self::ACTION_SWITCH;
+    public $location = 0;
+    public $value = 0;
+    public $hidden = false;
 
     public function __construct($properties=[])
     {
-        $this->id = 0;
-        $this->name = 'n.a.';
-        $this->type = self::ACTION_SWITCH;
-        $this->location = 0;
-        $this->value = 0;
-
         if ($properties) {
             if (!isset($properties['id']) || !isset($properties['name'])) {
                 throw new ControllerException('Missing properties');
@@ -51,14 +46,9 @@ class Action
         }
     }
 
-    public function run($value=null)
-    {
-        Controller::load()->setAction($this->id, $value);
-    }
-
     public function __toString()
     {
-        return $this->name;
+        return $this->name ?: sprintf('action:%d', $this->id);
     }
 
     public function toArray()
@@ -71,5 +61,45 @@ class Action
             'type' => $this->type,
             'location' => $this->location
         ];
+    }
+
+    public function run($value=-1)
+    {
+        if($value < 0) {
+            $value = ($this->value > 0) ? 0 : 100;
+        }
+
+        switch($this->type) {
+            case self::ACTION_STORY:
+                $value = 1; break;
+
+            // On / Off
+            case self::ACTION_SWITCH:
+                $value = min(1, max(0, $value)); break;
+
+            // Dimmer
+            case 2:
+                if($this->value < 1) {
+                    $value = 1;
+                }
+                elseif($this->value < 100) {
+                    $value = min(100, floor(1 + $this->value/10) * 10);
+                }
+                else {
+                    $value = 0;
+                }
+                break;
+
+            // Shutter
+            case 4:
+                $value = min(100, max(0, $value));
+                break;
+        }
+
+        if (false !== Controller::load()->setAction($this->id, $value)) {
+            $this->value = $value;
+        }
+
+        return $value;
     }
 }

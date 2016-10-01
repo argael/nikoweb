@@ -42,7 +42,7 @@
       $.get( $button.attr('href'), function(data) {
         console.log(data);
 
-        if (data.value1 > 0) {
+        if (data.value > 0) {
           $button.removeClass('btn-default');
           $button.addClass('btn-warning');
         }
@@ -52,7 +52,7 @@
         }
 
         if(data.type == 2) {
-          $('.badge', $button).text(data.value1);
+          $('.badge', $button).text(data.value);
         }
       } );
       return false;

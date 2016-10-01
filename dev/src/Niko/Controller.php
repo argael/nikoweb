@@ -133,33 +133,31 @@ class Controller
         $nhcLocations = $this->sendCommand('listlocations');
         $nhcActions = $this->sendCommand('listactions');
 
-        $this->nhc = array_reduce($nhcLocations, function($locations, $location) use ($nhcActions, $options) {
-            if(!$options['locations'][$location['id']]['exclude']) {
-                $locations[ $location['id'] ] = array_merge(
-                    $location,
-                    $options['locations'][$location['id']] ?: [],
-                    ['actions' => array_reduce($nhcActions, function($actions, $action) use ($location, $options) {
-                        if(!$options['actions'][ $action['id'] ]['exclude']) {
-                            if ($action['location'] == $location['id']) {
-                                $action['value'] = $action['value1'];
+        array_walk($nhcLocations, function($location) use ($nhcActions, $options) {
+            $nhcLocation = new Location($location);
+            $nhcLocation->addProperties($options['locations'][$location['id']] ?: []);
 
-                                $actions[ $action['id'] ] = array_merge(
-                                    $action,
-                                    $options['actions'][$action['id']] ?: []
-                                );
-                            }
-                        }
-                        return $actions;
-                    })]
-                );
-            }
-            return $locations;
-        }, []);
+            array_walk($nhcActions, function($action) use ($nhcLocation, $options) {
+                if ($action['location'] == $nhcLocation->id) {
+                    $nhcAction = new Action($action);
+                    $nhcAction->addProperties($options['actions'][ $action['id'] ] ?: []);
+
+                    $nhcAction->hidden || $nhcLocation->addAction($nhcAction);
+                }
+            });
+
+            $nhcLocation->hidden || $this->addLocation($nhcLocation);
+        });
     }
 
     public function toArray()
     {
         return $this->nhc;
+    }
+
+    public function addLocation($location)
+    {
+        $this->nhc[ $location->id ] = $location;
     }
 
     // ----------------------------------------------------------------------------------------------------------------
@@ -172,59 +170,30 @@ class Controller
     public function allActions()
     {
         $actions = [];
-        array_walk($this->nhc, function($location) use (&$actions) {
-            $actions += $location['actions'] ?: [];
+        array_walk($this->nhc, function($location) use (&$actions) { /* @var Location $location */
+            $actions += $location->getActions();
         });
 
         return $actions;
     }
 
+    /**
+     * @param $id
+     * @return bool|Action
+     */
     public function getAction($id)
     {
         $actions = $this->allActions();
         return isset($actions[$id]) ? $actions[$id] : false;
     }
 
-    public function setAction($id, $value = 0)
+    public function setAction($id, $value=-1)
     {
-        $action = $this->getAction($id);
-        if ($action) {
-            if($value < 0) {
-                $value = ($action['value'] > 0) ? 0 : 100;
-            }
+        $response = $this->sendCommand('executeactions', ['id' => $id, 'value1' => $value]);
+        return ($response && $response['error'] == 0) ? $value : false;
+    }
 
-            switch($action['type']) {
-                case 0:
-                    $value = 1; break;
-
-                // On / Off
-                case 1:
-                    $value = min(1, max(0, $value));
-                    break;
-
-                // Dimmer
-                case 2:
-                    if($action['value'] < 1) {
-                        $value = 1;
-                    }
-                    elseif($action['value'] < 100) {
-                        $value = min(100, floor(1 + $action['value']/10) * 10);
-                    }
-                    else {
-                        $value = 0;
-                    }
-                    break;
-
-                // Shutter
-                case 4:
-                    $value = min(100, max(0, $value));
-                    break;
-            }
-
-            $response = $this->sendCommand('executeactions', ['id' => $id, 'value1' => $value]);
-            return ($response && $response['error'] == 0) ? $value : false;
-        }
-
-        return false;
+    public function runAction($id, $value) {
+        return $this->getAction($id)->run($value);
     }
 }
