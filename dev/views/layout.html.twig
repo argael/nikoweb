@@ -19,29 +19,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-    <script>
-      $(function() {
-        $('.js-action').on('click', function(e) {
-          e.preventDefault();
-          var $button = $(this);
-
-          $.get( $button.attr('href'), function(data) {
-            if (data.value1 > 0) {
-              $button.removeClass('btn-default');
-              $button.addClass('btn-warning');
-            }
-            else {
-              $button.removeClass('btn-warning');
-              $button.addClass('btn-default');
-            }
-
-            if(data.type == 2) {
-              $('.badge', $button).text(data.value1);
-            }
-          } );
-          return false;
-        });
-      });
-    </script>
+    {% block endscript %}{% endblock %}
   </body>
 </html>
