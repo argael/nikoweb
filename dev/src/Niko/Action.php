@@ -17,39 +17,59 @@ class Action
     public $icon;
     public $type;
     public $location;
-    public $values;
+    public $value;
 
-    public function __construct($propeties=[])
+    public function __construct($properties=[])
     {
-        if ($propeties) {
-            if (!isset($propeties['id']) || !isset($propeties['name'])) {
+        $this->id = 0;
+        $this->name = 'n.a.';
+        $this->type = self::ACTION_SWITCH;
+        $this->location = 0;
+        $this->value = 0;
+
+        if ($properties) {
+            if (!isset($properties['id']) || !isset($properties['name'])) {
                 throw new ControllerException('Missing properties');
             }
+            $this->addProperties($properties);
+        }
+    }
 
-            $this->id = $propeties['id'];
-            $this->name = $propeties['name'];
-            $this->icon = isset($propeties['icon']) ? $propeties['icon'] : '';
-
-            $this->type = isset($propeties['type'])
-                ? $propeties['type']
-                : self::ACTION_SWITCH;
-
-            $this->location = isset($propeties['location'])
-                ? $propeties['location']
-                : 0;
-
-            $this->values = ['value1' => isset($propeties['value1']) ? $propeties['value1'] : 0];
-            isset($propeties['value2']) and $this->values['value2'] = $propeties['value2'];
-            isset($propeties['value3']) and $this->values['value3'] = $propeties['value3'];
+    public function addProperties($properties=[])
+    {
+        foreach($properties as $property => $value) {
+            switch($property) {
+                case 'value1':
+                    $this->value = $value;
+                    break;
+                case 'value2':
+                case 'value3':
+                    break;
+                default:
+                    $this->$property = $value;
+            }
         }
     }
 
     public function run($value=null)
     {
-        Controller::load()->setAction(
-            $this->id,
-            $value
-        );
+        Controller::load()->setAction($this->id, $value);
+    }
 
+    public function __toString()
+    {
+        return $this->name;
+    }
+
+    public function toArray()
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'icon' => $this->icon,
+            'value' => $this->value,
+            'type' => $this->type,
+            'location' => $this->location
+        ];
     }
 }

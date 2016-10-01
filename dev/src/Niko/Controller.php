@@ -32,11 +32,17 @@ class Controller
         }
 
         if (false === ($this->socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP))) {
-            throw new ControllerException("Unable to create the socket", 1);
+            throw new ControllerException(sprintf(
+                "Unable to create the socket : %s",
+                socket_strerror(socket_last_error())
+            ), 1);
         }
 
         if (false === socket_connect($this->socket, $address, $port)) {
-            throw new ControllerException("Unable to connect the socket", 1);
+            throw new ControllerException(sprintf(
+                "Unable to connect the socket : %s",
+                socket_strerror(socket_last_error())
+            ), 1);
         }
 
         $this->initNhc($options);
@@ -133,6 +139,8 @@ class Controller
                 $options['locations'][$location['id']] ?: [],
                 ['actions' => array_reduce($nhcActions, function($actions, $action) use ($location, $options) {
                     if ($action['location'] == $location['id']) {
+                        $action['value'] = $action['value1'];
+
                         $actions[ $action['id'] ] = array_merge(
                             $action,
                             $options['actions'][$action['id']] ?: []
@@ -178,7 +186,7 @@ class Controller
         $action = $this->getAction($id);
         if ($action) {
             if($value < 0) {
-                $value = ($action['value1'] > 0) ? 0 : 100;
+                $value = ($action['value'] > 0) ? 0 : 100;
             }
 
             switch($action['type']) {
@@ -192,11 +200,11 @@ class Controller
 
                 // Dimmer
                 case 2:
-                    if($action['value1'] < 1) {
+                    if($action['value'] < 1) {
                         $value = 1;
                     }
-                    elseif($action['value1'] < 100) {
-                        $value = min(100, floor(1 + $action['value1']/10) * 10);
+                    elseif($action['value'] < 100) {
+                        $value = min(100, floor(1 + $action['value']/10) * 10);
                     }
                     else {
                         $value = 0;

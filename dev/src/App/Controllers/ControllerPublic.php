@@ -22,7 +22,7 @@ $app->get('/action/{id}/{value}', function ($id, $value=null) use ($app) {
     $niko = $app['niko']; /* @var \Niko\Controller $niko */
 
     $action = $niko->getAction($id);
-    $action['value1'] = $niko->setAction($id, $value);
+    $action['value'] = $niko->setAction($id, $value);
 
     return $app->json($action);
 })
@@ -35,7 +35,8 @@ $app->get('/action/{id}/{value}', function ($id, $value=null) use ($app) {
  * DEBUG - Retrieve all availables actions by locations
  */
 $app->get('/actions', function () use ($app) {
-    return sprintf('<pre>%s</pre>', print_r($app['niko']->allActions(), true));
+    $niko = $app['niko']; /* @var \Niko\Controller $niko */
+    return sprintf('<pre>%s</pre>', print_r($niko->allActions(), true));
 });
 
 /**
