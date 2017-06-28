@@ -3,7 +3,7 @@ namespace Niko;
 
 use Niko\Exception\ControllerException;
 
-// --------------------------------------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------
 
 /**
  * NHC Controller Class
@@ -31,7 +31,8 @@ class Controller
             throw new ControllerException("No address specified.", 1);
         }
 
-        if (false === ($this->socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP))) {
+        $this->socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
+        if (false === $this->socket) {
             throw new ControllerException(sprintf(
                 "Unable to create the socket : %s",
                 socket_strerror(socket_last_error())
@@ -65,7 +66,39 @@ class Controller
         return self::$instance;
     }
 
-    // ----------------------------------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------
+
+    /**
+     * Create a nested array with "locations" and "actions" from NHC
+     *
+     * @param array $options
+     */
+    private function initNhc($options=[])
+    {
+        $nhcLocations = $this->sendCommand('listlocations');
+        $nhcActions = $this->sendCommand('listactions');
+
+        array_walk($nhcLocations, function($location) use ($nhcActions, $options) {
+            $nhcLocation = new Location($location);
+            $nhcLocation->addProperties($options['locations'][$location['id']] ?: []);
+
+            array_walk($nhcActions, function($action) use ($nhcLocation, $options) {
+                if ($action['location'] == $nhcLocation->id) {
+                    $nhcAction = new Action($action);
+                    $nhcAction->addProperties($options['actions'][ $action['id'] ] ?: []);
+
+                    $nhcAction->hidden || $nhcLocation->addAction($nhcAction);
+                }
+            });
+
+            $nhcLocation->hidden || $this->addLocation($nhcLocation);
+        });
+    }
+
+    private function addLocation($location)
+    {
+        $this->nhc[ $location->id ] = $location;
+    }
 
     /**
      * Send message to NHC
@@ -107,12 +140,6 @@ class Controller
         return $datas['data'];
     }
 
-    public function testCommand($command, $options=[])
-    {
-        $command = json_encode(array_merge(['cmd' => $command], $options));
-        echo '<pre>', print_r($this->send($command), true), '</pre>'; exit;
-    }
-
     /**
      * Close the connection to NHC
      */
@@ -123,54 +150,33 @@ class Controller
         }
     }
 
-    /**
-     * Create a nested array with "locations" and "actions" from NHC
-     *
-     * @param array $options
-     */
-    public function initNhc($options=[])
-    {
-        $nhcLocations = $this->sendCommand('listlocations');
-        $nhcActions = $this->sendCommand('listactions');
-
-        array_walk($nhcLocations, function($location) use ($nhcActions, $options) {
-            $nhcLocation = new Location($location);
-            $nhcLocation->addProperties($options['locations'][$location['id']] ?: []);
-
-            array_walk($nhcActions, function($action) use ($nhcLocation, $options) {
-                if ($action['location'] == $nhcLocation->id) {
-                    $nhcAction = new Action($action);
-                    $nhcAction->addProperties($options['actions'][ $action['id'] ] ?: []);
-
-                    $nhcAction->hidden || $nhcLocation->addAction($nhcAction);
-                }
-            });
-
-            $nhcLocation->hidden || $this->addLocation($nhcLocation);
-        });
-    }
-
     public function toArray()
     {
-        return $this->nhc;
+        return array_reduce($this->nhc, function($locations, $locations) {
+            /* @var Location $location */
+            $locations[ $location->id ] = $location->toArray();
+            return $locations;
+        }),
     }
 
-    public function addLocation($location)
-    {
-        $this->nhc[ $location->id ] = $location;
-    }
+    // ------------------------------------------------------------------------
 
-    // ----------------------------------------------------------------------------------------------------------------
-
+    /**
+     *  From NHC, get general informations.
+     */
     public function getInformations()
     {
         return $this->sendCommand('systeminfo');
     }
 
+    /**
+     *  List all availables actions (stored in class)
+     */
     public function allActions()
     {
         $actions = [];
-        array_walk($this->nhc, function($location) use (&$actions) { /* @var Location $location */
+        array_walk($this->nhc, function($location) use (&$actions) {
+            /* @var Location $location */
             $actions += $location->getActions();
         });
 
@@ -178,6 +184,8 @@ class Controller
     }
 
     /**
+     * Get a specific action from stored list
+     *
      * @param $id
      * @return bool|Action
      */
@@ -187,6 +195,13 @@ class Controller
         return isset($actions[$id]) ? $actions[$id] : false;
     }
 
+    /**
+     * Send the value to NHC for a stored action
+     *
+     * @param $id
+     * @param $value
+     * @return bool|Action
+     */
     public function setAction($id, $value=-1)
     {
         $response = $this->sendCommand('executeactions', ['id' => $id, 'value1' => $value]);

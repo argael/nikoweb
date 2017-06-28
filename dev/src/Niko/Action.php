@@ -12,6 +12,13 @@ class Action
     const ACTION_DIMMER = 2;
     const ACTION_SHUTTER = 4;
 
+    static protected $types = [
+        self::ACTION_STORY => 'story',
+        self::ACTION_SWITCH => 'switch',
+        self::ACTION_DIMMER => 'dimmer',
+        self::ACTION_SHUTTER => 'shutter',
+    ];
+
     public $id = 0;
     public $name = 'n.c.';
     public $icon = '';
@@ -55,12 +62,17 @@ class Action
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
+            'name' => $this->name . " test",
             'icon' => $this->icon,
             'value' => $this->value,
-            'type' => $this->type,
+            'type' => $this->getTypeName(),
             'location' => $this->location
         ];
+    }
+
+    public function getTypeName()
+    {
+        return self::$types[$this->type];
     }
 
     public function run($value=-1)

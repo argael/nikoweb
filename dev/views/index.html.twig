@@ -15,14 +15,9 @@
       <div class="panel-body">
 
         {% for action in location.actions %}
-          <a href="./action/{{ action.id }}" class="btn {{ action.value ? 'btn-warning':'btn-default'}} js-action">
-            <i class="{{ action.icon|default('fa fa-lightbulb-o') }}"></i>
-            {{ action.name }}
-            {% if action.type == 2 %}<span class="badge">{{ action.value }}</span>
-            {% endif %}
-          </a>
+          {% include ["components/" ~ action.typeName() ~ "_action.html",
+                      "components/switch_action.html" ] with action only %}
         {% endfor %}
-
       </div>
     </div>
   </div>
