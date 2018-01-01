@@ -1,9 +1,11 @@
-<div class="btn-group" data-value="{{ value }}" data-state="{{ state }}">
-  <a href="./action/{{ id }}/down" class="btn {{ state ? 'btn-warning':'btn-default'}} js-action"><i class="fa fa-minus"></i></a>
-
+<div class="btn-group" data-type="{{ type }}" data-value="{{ value }}" data-state="{{ state }}">
+  <a href="./action/{{ id }}/down" class="btn {{ state ? 'btn-warning':'btn-default'}} js-action">
+    <i class="fa fa-minus"></i>
+  </a>
   <a href="./action/{{ id }}" class="btn {{ state ? 'btn-warning':'btn-default'}} js-action">
     <i class="{{ icon|default('fa fa-lightbulb-o') }}"></i> {{ name }}
   </a>
-
-  <a href="./action/{{ id }}/up" class="btn {{ state ? 'btn-warning':'btn-default'}} js-action"><i class="fa fa-plus"></i></a>
+  <a href="./action/{{ id }}/up" class="btn {{ state ? 'btn-warning':'btn-default'}} js-action">
+    <i class="fa fa-plus"></i>
+  </a>
 </div>

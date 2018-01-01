@@ -30,24 +30,19 @@
   $(function() {
     $('.js-action').on('click', function(e) {
       e.preventDefault();
-      var $button = $(this);
+      var $element = $(this);
+      if ($element.parent().hasClass('btn-group')) {
+        $element = $element.parent().children();
+      }
 
-      console.log('Click on ' + $button.attr('href'));
-
-      $.get( $button.attr('href'), function(data) {
-        console.log(data);
-
-        if (data.value > 0) {
-          $button.removeClass('btn-default');
-          $button.addClass('btn-warning');
+      $.get( $(this).attr('href'), function(data) {
+        if (data.state) {
+          $element.removeClass('btn-default');
+          $element.addClass('btn-warning');
         }
         else {
-          $button.removeClass('btn-warning');
-          $button.addClass('btn-default');
-        }
-
-        if(data.type == 2) {
-          $('.badge', $button).text(data.value);
+          $element.removeClass('btn-warning');
+          $element.addClass('btn-default');
         }
       } );
       return false;

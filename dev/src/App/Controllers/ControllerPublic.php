@@ -19,7 +19,7 @@ $app->get('/', function () use ($app) {
  */
 $app->get('/action/{id}/{value}', function ($id, $value=null) use ($app) {
     $niko = $app['niko']; /* @var \Niko\Controller $niko */
-    $action['value'] = $niko->runAction($id, $value);
+    $action = $niko->runAction($id, $value);
     return $app->json($action);
 })->value('value', '')->bind('actions.run');
 

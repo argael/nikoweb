@@ -107,7 +107,7 @@ class Action
             $this->value = $value;
         }
 
-        return $value;
+        return $this->toArray();
     }
 
     public function addProperties($properties=[])
