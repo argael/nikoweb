@@ -7,17 +7,18 @@ use Niko\Exception\ControllerException;
 
 class Action
 {
+    const ACTION_ON = 'on';
+    const ACTION_OFF = 'off';
+    const ACTION_UP = 'up';
+    const ACTION_DOWN = 'down';
+    const ACTION_TOGGLE = 'toggle';
+
     const ACTION_STORY = 0;
     const ACTION_SWITCH = 1;
     const ACTION_DIMMER = 2;
     const ACTION_SHUTTER = 4;
 
-    static protected $types = [
-        self::ACTION_STORY => 'story',
-        self::ACTION_SWITCH => 'switch',
-        self::ACTION_DIMMER => 'dimmer',
-        self::ACTION_SHUTTER => 'shutter',
-    ];
+    const DIMMER_STEP = 10;
 
     public $id = 0;
     public $name = 'n.c.';
@@ -37,20 +38,19 @@ class Action
         }
     }
 
-    public function addProperties($properties=[])
+    public function state()
     {
-        foreach($properties as $property => $value) {
-            switch($property) {
-                case 'value1':
-                    $this->value = $value;
-                    break;
-                case 'value2':
-                case 'value3':
-                    break;
-                default:
-                    $this->$property = $value;
-            }
-        }
+        return $this->value != 0 && $this->value != 255;
+    }
+
+    public function typename()
+    {
+        return [
+            self::ACTION_STORY => 'story',
+            self::ACTION_SWITCH => 'switch',
+            self::ACTION_DIMMER => 'dimmer',
+            self::ACTION_SHUTTER => 'shutter',
+        ][$this->type];
     }
 
     public function __toString()
@@ -62,49 +62,44 @@ class Action
     {
         return [
             'id' => $this->id,
-            'name' => $this->name . " test",
+            'name' => $this->name,
             'icon' => $this->icon,
             'value' => $this->value,
-            'type' => $this->getTypeName(),
+            'state' => $this->state(),
+            'type' => $this->typename(),
             'location' => $this->location
         ];
     }
 
-    public function getTypeName()
+    public function run($do = self::ACTION_TOGGLE)
     {
-        return self::$types[$this->type];
-    }
-
-    public function run($value=-1)
-    {
-        if($value < 0) {
-            $value = ($this->value > 0) ? 0 : 100;
-        }
-
         switch($this->type) {
             case self::ACTION_STORY:
                 $value = 1; break;
 
             // On / Off
             case self::ACTION_SWITCH:
-                $value = min(1, max(0, $value)); break;
+                $value = $this->state() ? 0 : 1;
+                break;
 
             // Dimmer
-            case 2:
-                if($this->value < 1) {
-                    $value = 1;
+            case self::ACTION_DIMMER:
+                if ($do == self::ACTION_DOWN) {
+                    $value = max(1, $this->value - self::DIMMER_STEP);
                 }
-                elseif($this->value < 100) {
-                    $value = min(100, floor(1 + $this->value/10) * 10);
+                elseif ($do == self::ACTION_UP) {
+                    $value = $this->state()
+                        ? min(100, $this->value + self::DIMMER_STEP)
+                        : 1;
                 }
                 else {
-                    $value = 0;
+                    $value = $this->state() ? 255 : 254;
                 }
                 break;
 
             // Shutter
-            case 4:
-                $value = min(100, max(0, $value));
+            case self::ACTION_SHUTTER:
+                $value = !$this->state() ? 255 : 254;
                 break;
         }
 
@@ -113,5 +108,22 @@ class Action
         }
 
         return $value;
+    }
+
+    public function addProperties($properties=[])
+    {
+        foreach($properties as $property => $value) {
+            switch($property) {
+                case 'value1':
+                    $this->value = $value;
+                    $this->state();
+                    break;
+                case 'value2':
+                case 'value3':
+                    break;
+                default:
+                    $this->$property = $value;
+            }
+        }
     }
 }

@@ -2,6 +2,7 @@
 namespace Niko;
 
 use Niko\Exception\ControllerException;
+use Niko\Exception\ControllerSocketException;
 
 // ----------------------------------------------------------------------------
 
@@ -24,6 +25,7 @@ class Controller
      * @param array $options
      *
      * @throws ControllerException
+     * @throws ControllerSocketException
      */
     private function __construct($address, $port=8000, $options=[])
     {
@@ -33,17 +35,11 @@ class Controller
 
         $this->socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
         if (false === $this->socket) {
-            throw new ControllerException(sprintf(
-                "Unable to create the socket : %s",
-                socket_strerror(socket_last_error())
-            ), 1);
+            throw new ControllerSocketException('Unable to create the socket');
         }
 
         if (false === socket_connect($this->socket, $address, $port)) {
-            throw new ControllerException(sprintf(
-                "Unable to connect the socket : %s",
-                socket_strerror(socket_last_error())
-            ), 1);
+            throw new ControllerSocketException('Unable to connect the socket');
         }
 
         $this->initNhc($options);
@@ -75,8 +71,8 @@ class Controller
      */
     private function initNhc($options=[])
     {
-        $nhcLocations = $this->sendCommand('listlocations');
-        $nhcActions = $this->sendCommand('listactions');
+        $nhcLocations = $this->sendCommand('listlocations') ?: [];
+        $nhcActions = $this->sendCommand('listactions') ?: [];
 
         array_walk($nhcLocations, function($location) use ($nhcActions, $options) {
             $nhcLocation = new Location($location);
@@ -107,19 +103,20 @@ class Controller
      *
      * @return string
      * @throws ControllerException
+     * @throws ControllerSocketException
      */
-    protected function send($message)
+    public function send($message)
     {
-        if (false === socket_write($this->socket, $message, strlen($message))) {
-            throw new ControllerException("Error Sending Command", 1);
+        if (false === ($bytes = socket_write($this->socket, $message, strlen($message)))) {
+            throw new ControllerSocketException('Error while sending command');
         }
 
+        usleep(100000);
+
         $response = '';
-        do {
-            $bytes = socket_recv($this->socket, $out, 256, 0);
-            $response .= trim($out);
+        while($recieved = socket_recv($this->socket, $out, 2048, MSG_DONTWAIT)) {
+            $response = $response . trim($out);
         }
-        while ($bytes == 0 || $bytes == 256);
 
         return $response;
     }
@@ -133,7 +130,7 @@ class Controller
      * @return mixed
      * @throws ControllerException
      */
-    protected function sendCommand($command, $options=[])
+    public function sendCommand($command, $options=[])
     {
         $command = json_encode(array_merge(['cmd' => $command], $options));
         $datas = json_decode($this->send($command), true);
@@ -152,11 +149,11 @@ class Controller
 
     public function toArray()
     {
-        return array_reduce($this->nhc, function($locations, $locations) {
+        return array_reduce($this->nhc, function($locations, $location) {
             /* @var Location $location */
             $locations[ $location->id ] = $location->toArray();
             return $locations;
-        }),
+        });
     }
 
     // ------------------------------------------------------------------------

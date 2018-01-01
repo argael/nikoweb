@@ -15,8 +15,8 @@
       <div class="panel-body">
 
         {% for action in location.actions %}
-          {% include ["components/" ~ action.typeName() ~ "_action.html",
-                      "components/switch_action.html" ] with action only %}
+          {% include ["components/" ~ action.type ~ "_action.html.twig",
+                      "components/switch_action.html.twig" ] with action only %}
         {% endfor %}
       </div>
     </div>

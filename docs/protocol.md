@@ -43,6 +43,9 @@ Les communications entre l'app et l'interface sont codée en JSON.
     _Le dimmer fonctionne comme le switch simple mais la `valeur1` peut varier de 0 à 100._
 
         SOCKET-OUT: {"cmd":"executeactions", "id":0,"value1":40}  <-- Définir l'intensité à 40%
+        
+    * La valeur 254, permet d'allumer à la valeur précédente
+    * La valeur 255, permet d'éteindre en concervant l'intensité précédente
 
 6. Récuper les messages "Alarme"
 

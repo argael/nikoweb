@@ -9,7 +9,6 @@ namespace App\Controllers;
  */
 $app->get('/', function () use ($app) {
     $niko = $app['niko']; /* @var \Niko\Controller $niko */
-
     return $app['twig']->render('index.html.twig', [
         'locations' => $niko->toArray()
     ]);
@@ -22,23 +21,19 @@ $app->get('/action/{id}/{value}', function ($id, $value=null) use ($app) {
     $niko = $app['niko']; /* @var \Niko\Controller $niko */
     $action['value'] = $niko->runAction($id, $value);
     return $app->json($action);
-})
-  ->value('value', -1)
-  ->bind('actions.run');
+})->value('value', '')->bind('actions.run');
 
 // --------------------------------------------------------------------------------------------------------------------
 
 /**
- * DEBUG - Retrieve all availables actions by locations
+ * DEBUG - Test command
  */
-$app->get('/actions', function () use ($app) {
+$app->get('/command/{action}', function ($action) use ($app) {
     $niko = $app['niko']; /* @var \Niko\Controller $niko */
-    return sprintf('<pre>%s</pre>', print_r($niko->allActions(), true));
-});
+    return $app->json($niko->sendCommand($action));
+})->bind('actions.command');
 
-/**
- * DEBUG - Execute action
- */
-$app->get('/test', function () use ($app) {
-    $app['niko']->testCommand('getmsgs');
-});
+$app->get('/list', function () use ($app) {
+    $niko = $app['niko']; /* @var \Niko\Controller $niko */
+    return $app->json($niko->allActions());
+})->bind('actions.list');
