@@ -1,0 +1,1 @@
+{"version":3,"file":"../../../coffee/application/themes/politics.js","sources":["application/themes/politics.coffee"],"names":[],"mappings":"AAAA;EAAA,MAAO,CAAA,QAAA,CAAU,CAAA,SAAA,CAAjB,GAA8B;;EAC9B,MAAO,CAAA,QAAA,CAAU,CAAA,WAAA,CAAjB,GAAgC;AADhC","sourcesContent":["window['colors']['primary'] = '#f44336'\nwindow['colors']['secondary'] = '#2196f3'\n"]}

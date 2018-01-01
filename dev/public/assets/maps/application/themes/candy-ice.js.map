@@ -1,0 +1,1 @@
+{"version":3,"file":"../../../coffee/application/themes/candy-ice.js","sources":["application/themes/candy-ice.coffee"],"names":[],"mappings":"AAAA;EAAA,MAAO,CAAA,QAAA,CAAU,CAAA,SAAA,CAAjB,GAA8B;;EAC9B,MAAO,CAAA,QAAA,CAAU,CAAA,WAAA,CAAjB,GAAgC;AADhC","sourcesContent":["window['colors']['primary'] = '#db36a4'\nwindow['colors']['secondary'] = '#f7ff00'\n"]}

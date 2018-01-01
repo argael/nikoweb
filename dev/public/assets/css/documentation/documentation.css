@@ -1,0 +1,168 @@
+.folder-tree-view {
+  padding: 2rem;
+  background: rgba(0,0,0,0.25);
+  border-radius: 3px;
+  margin: 0;
+  list-style: none;
+  position: relative;
+  display: block;
+}
+.folder-tree-view .disabled i {
+  color: $lightgray;
+}
+.folder-tree-view i {
+  color: rgba(255,255,255,0.5);
+  margin-right: 0.5rem;
+}
+.folder-tree-view span {
+  display: block;
+}
+.folder-tree-view span:nth-child(2n) {
+  position: absolute;
+  top: 1.2rem;
+  left: 1.8rem;
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.5);
+}
+.folder-tree-view .file span:nth-child(2n) {
+  left: 1.7rem;
+}
+.folder-tree-view ul {
+  padding-left: 2rem;
+  margin-top: 1.2rem;
+  list-style: none;
+}
+.folder-tree-view li {
+  font-size: 1rem;
+  margin-top: 1.2rem;
+  position: relative;
+}
+.folder-tree-view li:first-child {
+  margin-top: 0;
+}
+.folder-tree-view li.folder span:nth-child(2n) {
+  cursor: pointer;
+}
+.folder-tree-view li.folder.disabled span:nth-child(2n) {
+  cursor: default;
+}
+.folder-tree-view li.folder.open > ul {
+  display: block;
+}
+.folder-tree-view li.folder > ul {
+  display: none;
+}
+ul.table-of-contents {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0 0 20px;
+  font-size: 14px !important;
+}
+ul.table-of-contents > li {
+  margin-bottom: 5px;
+}
+ul.table-of-contents > li.active ul {
+  display: block;
+}
+ul.table-of-contents > li.active > a {
+  color: $concrete;
+  border-left: 2px solid #c04848;
+}
+ul.table-of-contents > li > a {
+  color: $gray;
+  border-left: 2px solid transparent;
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  padding-left: 20px;
+}
+ul.table-of-contents > li > a:hover {
+  color: $concrete;
+  border-left: 2px solid #c04848;
+}
+ul.table-of-contents > li ul {
+  display: none;
+  padding: 0;
+  list-style: none;
+}
+ul.table-of-contents > li ul li {
+  margin-top: 2px;
+}
+ul.table-of-contents > li ul li a {
+  color: $gray;
+  padding: 0 0 0 30px;
+  border-left: 1px solid $silver;
+}
+ul.table-of-contents > li ul li.active a {
+  border-left-color: #c04848;
+  color: $concrete;
+}
+ul.table-of-contents > li.table-heading {
+  padding-left: 0px;
+  margin: 1rem 0 1rem;
+}
+.count-bubble {
+  font-size: 10px;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  text-align: center;
+  display: inline-block;
+  background: #c04848;
+  border-radius: 100%;
+  color: #fff;
+  float: left;
+  margin-right: 0.75rem;
+  margin-left: -0.2rem;
+}
+.topics ul {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+.topics ul li {
+  margin-top: 0.5rem;
+}
+.topics ul li a {
+  font-size: 1rem;
+  color: rgba(255,255,255,0.85);
+}
+.topics ul li a i {
+  color: rgba(255,255,255,0.5);
+  margin-right: 0.75rem;
+}
+.themes-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  zoom: 1;
+  display: block;
+  position: relative;
+}
+.themes-list:before,
+.themes-list:after {
+  content: "";
+  display: table;
+}
+.themes-list:after {
+  clear: both;
+}
+.themes-list li {
+  float: left;
+  width: 33.33333333333333%;
+}
+@media screen and (min-width: 576px) and (max-width: 767px) {
+  .themes-list li {
+    width: 50%;
+  }
+}
+@media screen and (max-width: 575px) {
+  .themes-list li {
+    width: 100%;
+  }
+}
+.themes-list li a {
+  font-size: 1.1rem;
+  padding: 1rem;
+  display: block;
+}
+
+/*# sourceMappingURL=../../maps/documentation/documentation.css.map */

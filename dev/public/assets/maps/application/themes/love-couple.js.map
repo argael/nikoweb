@@ -1,0 +1,1 @@
+{"version":3,"file":"../../../coffee/application/themes/love-couple.js","sources":["application/themes/love-couple.coffee"],"names":[],"mappings":"AAAA;EAAA,MAAO,CAAA,QAAA,CAAU,CAAA,SAAA,CAAjB,GAA8B;;EAC9B,MAAO,CAAA,QAAA,CAAU,CAAA,WAAA,CAAjB,GAAgC;AADhC","sourcesContent":["window['colors']['primary'] = '#89253e'\nwindow['colors']['secondary'] = '#3a6186'\n"]}

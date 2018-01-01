@@ -1,0 +1,1 @@
+{"version":3,"file":"../../../coffee/application/themes/50shades.js","sources":["application/themes/50shades.coffee"],"names":[],"mappings":"AAAA;EAAA,MAAO,CAAA,QAAA,CAAU,CAAA,SAAA,CAAjB,GAA8B;;EAC9B,MAAO,CAAA,QAAA,CAAU,CAAA,WAAA,CAAjB,GAAgC;AADhC","sourcesContent":["window['colors']['primary'] = '#2c3e50'\nwindow['colors']['secondary'] = '#bdc3c7'\n"]}

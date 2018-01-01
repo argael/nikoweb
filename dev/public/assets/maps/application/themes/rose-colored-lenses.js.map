@@ -1,0 +1,1 @@
+{"version":3,"sources":["application/themes/rose-colored-lenses.coffee"],"names":[],"mappings":"AAAA;EAAA,MAAO,CAAA,QAAA,CAAU,CAAA,SAAA,CAAjB,GAA8B;;EAC9B,MAAO,CAAA,QAAA,CAAU,CAAA,WAAA,CAAjB,GAAgC;AADhC","file":"../../../coffee/application/themes/rose-colored-lenses.js","sourcesContent":["window['colors']['primary'] = '#636fa4'\nwindow['colors']['secondary'] = '#e8cbc0'\n"]}

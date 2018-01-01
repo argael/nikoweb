@@ -1,0 +1,1 @@
+{"version":3,"file":"../../../coffee/application/themes/firewatch.js","sources":["application/themes/firewatch.coffee"],"names":[],"mappings":"AAAA;EAAA,MAAO,CAAA,QAAA,CAAU,CAAA,SAAA,CAAjB,GAA8B;;EAC9B,MAAO,CAAA,QAAA,CAAU,CAAA,WAAA,CAAjB,GAAgC;AADhC","sourcesContent":["window['colors']['primary'] = '#ef473a'\nwindow['colors']['secondary'] = '#cb2d3e'\n"]}

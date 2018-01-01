@@ -1,0 +1,1 @@
+{"version":3,"file":"../../../coffee/application/themes/love-tonight.js","sources":["application/themes/love-tonight.coffee"],"names":[],"mappings":"AAAA;EAAA,MAAO,CAAA,QAAA,CAAU,CAAA,SAAA,CAAjB,GAA8B;;EAC9B,MAAO,CAAA,QAAA,CAAU,CAAA,WAAA,CAAjB,GAAgC;AADhC","sourcesContent":["window['colors']['primary'] = '#4568dc'\nwindow['colors']['secondary'] = '#b06ab3'\n"]}

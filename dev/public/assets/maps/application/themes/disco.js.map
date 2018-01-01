@@ -1,0 +1,1 @@
+{"version":3,"file":"../../../coffee/application/themes/disco.js","sources":["application/themes/disco.coffee"],"names":[],"mappings":"AAAA;EAAA,MAAO,CAAA,QAAA,CAAU,CAAA,SAAA,CAAjB,GAA8B;;EAC9B,MAAO,CAAA,QAAA,CAAU,CAAA,WAAA,CAAjB,GAAgC;AADhC","sourcesContent":["window['colors']['primary'] = '#556270'\nwindow['colors']['secondary'] = '#4ecdc4'\n"]}

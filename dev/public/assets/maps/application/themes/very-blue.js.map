@@ -1,0 +1,1 @@
+{"version":3,"file":"../../../coffee/application/themes/very-blue.js","sources":["application/themes/very-blue.coffee"],"names":[],"mappings":"AAAA;EAAA,MAAO,CAAA,QAAA,CAAU,CAAA,SAAA,CAAjB,GAA8B;;EAC9B,MAAO,CAAA,QAAA,CAAU,CAAA,WAAA,CAAjB,GAAgC;AADhC","sourcesContent":["window['colors']['primary'] = '#0575e6'\nwindow['colors']['secondary'] = '#021b79'\n"]}

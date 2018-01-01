@@ -1,0 +1,1 @@
+{"version":3,"file":"../../../coffee/application/themes/dawn.js","sources":["application/themes/dawn.coffee"],"names":[],"mappings":"AAAA;EAAA,MAAO,CAAA,QAAA,CAAU,CAAA,SAAA,CAAjB,GAA8B;;EAC9B,MAAO,CAAA,QAAA,CAAU,CAAA,WAAA,CAAjB,GAAgC;AADhC","sourcesContent":["window['colors']['primary'] = '#F3904F'\nwindow['colors']['secondary'] = '#3B4371'\n"]}

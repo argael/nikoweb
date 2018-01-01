@@ -1,0 +1,1 @@
+{"version":3,"file":"../../../coffee/application/themes/volta.js","sources":["application/themes/volta.coffee"],"names":[],"mappings":"AAAA;EAAA,MAAO,CAAA,QAAA,CAAU,CAAA,SAAA,CAAjB,GAA8B;;EAC9B,MAAO,CAAA,QAAA,CAAU,CAAA,WAAA,CAAjB,GAAgC;AADhC","sourcesContent":["window['colors']['primary'] = '#C04848'\nwindow['colors']['secondary'] = '#480048'\n"]}

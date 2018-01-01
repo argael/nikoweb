@@ -1,0 +1,1 @@
+{"version":3,"file":"../../../coffee/application/themes/grapefruit-sunset.js","sources":["application/themes/grapefruit-sunset.coffee"],"names":[],"mappings":"AAAA;EAAA,MAAO,CAAA,QAAA,CAAU,CAAA,SAAA,CAAjB,GAA8B;;EAC9B,MAAO,CAAA,QAAA,CAAU,CAAA,WAAA,CAAjB,GAAgC;AADhC","sourcesContent":["window['colors']['primary'] = '#904e95'\nwindow['colors']['secondary'] = '#e96443'\n"]}
