@@ -1,1 +1,0 @@
-{"version":3,"file":"../../../coffee/application/themes/miami-dolphins.js","sources":["application/themes/miami-dolphins.coffee"],"names":[],"mappings":"AAAA;EAAA,MAAO,CAAA,QAAA,CAAU,CAAA,SAAA,CAAjB,GAA8B;;EAC9B,MAAO,CAAA,QAAA,CAAU,CAAA,WAAA,CAAjB,GAAgC;AADhC","sourcesContent":["window['colors']['primary'] = '#d39d38'\nwindow['colors']['secondary'] = '#4da0b0'\n"]}

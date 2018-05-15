@@ -1,1 +1,0 @@
-{"version":3,"file":"../../../coffee/application/themes/cosmic-fusion.js","sources":["application/themes/cosmic-fusion.coffee"],"names":[],"mappings":"AAAA;EAAA,MAAO,CAAA,QAAA,CAAU,CAAA,SAAA,CAAjB,GAA8B;;EAC9B,MAAO,CAAA,QAAA,CAAU,CAAA,WAAA,CAAjB,GAAgC;AADhC","sourcesContent":["window['colors']['primary'] = '#ff00cc'\nwindow['colors']['secondary'] = '#333399'\n"]}

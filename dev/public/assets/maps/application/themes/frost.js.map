@@ -1,1 +1,0 @@
-{"version":3,"file":"../../../coffee/application/themes/frost.js","sources":["application/themes/frost.coffee"],"names":[],"mappings":"AAAA;EAAA,MAAO,CAAA,QAAA,CAAU,CAAA,SAAA,CAAjB,GAA8B;;EAC9B,MAAO,CAAA,QAAA,CAAU,CAAA,WAAA,CAAjB,GAAgC;AADhC","sourcesContent":["window['colors']['primary'] = '#004e92'\nwindow['colors']['secondary'] = '#000428'\n"]}

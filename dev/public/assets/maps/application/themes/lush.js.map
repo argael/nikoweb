@@ -1,1 +1,0 @@
-{"version":3,"file":"../../../coffee/application/themes/lush.js","sources":["application/themes/lush.coffee"],"names":[],"mappings":"AAAA;EAAA,MAAO,CAAA,QAAA,CAAU,CAAA,SAAA,CAAjB,GAA8B;;EAC9B,MAAO,CAAA,QAAA,CAAU,CAAA,WAAA,CAAjB,GAAgC;AADhC","sourcesContent":["window['colors']['primary'] = '#56ab2f'\nwindow['colors']['secondary'] = '#a8e063'\n"]}

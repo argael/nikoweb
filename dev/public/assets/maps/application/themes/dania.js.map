@@ -1,1 +1,0 @@
-{"version":3,"file":"../../../coffee/application/themes/dania.js","sources":["application/themes/dania.coffee"],"names":[],"mappings":"AAAA;EAAA,MAAO,CAAA,QAAA,CAAU,CAAA,SAAA,CAAjB,GAA8B;;EAC9B,MAAO,CAAA,QAAA,CAAU,CAAA,WAAA,CAAjB,GAAgC;AADhC","sourcesContent":["window['colors']['primary'] = '#7bc6cc'\nwindow['colors']['secondary'] = '#be93c5'\n"]}

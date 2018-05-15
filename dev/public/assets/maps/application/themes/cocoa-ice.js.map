@@ -1,1 +1,0 @@
-{"version":3,"file":"../../../coffee/application/themes/cocoa-ice.js","sources":["application/themes/cocoa-ice.coffee"],"names":[],"mappings":"AAAA;EAAA,MAAO,CAAA,QAAA,CAAU,CAAA,SAAA,CAAjB,GAA8B;;EAC9B,MAAO,CAAA,QAAA,CAAU,CAAA,WAAA,CAAjB,GAAgC;AADhC","sourcesContent":["window['colors']['primary'] = '#1ce1ce'\nwindow['colors']['secondary'] = '#c0c0aa'\n"]}

@@ -1,1 +1,0 @@
-{"version":3,"file":"../../../coffee/application/themes/easy-med.js","sources":["application/themes/easy-med.coffee"],"names":[],"mappings":"AAAA;EAAA,MAAO,CAAA,QAAA,CAAU,CAAA,SAAA,CAAjB,GAA8B;;EAC9B,MAAO,CAAA,QAAA,CAAU,CAAA,WAAA,CAAjB,GAAgC;AADhC","sourcesContent":["window['colors']['primary'] = '#409c43'\nwindow['colors']['secondary'] = '#c2c93a'\n"]}

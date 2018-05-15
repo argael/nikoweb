@@ -1,1 +1,0 @@
-{"version":3,"file":"../../../coffee/application/themes/orca.js","sources":["application/themes/orca.coffee"],"names":[],"mappings":"AAAA;EAAA,MAAO,CAAA,QAAA,CAAU,CAAA,SAAA,CAAjB,GAA8B;;EAC9B,MAAO,CAAA,QAAA,CAAU,CAAA,WAAA,CAAjB,GAAgC;AADhC","sourcesContent":["window['colors']['primary'] = '#093637'\nwindow['colors']['secondary'] = '#44a08d'\n"]}

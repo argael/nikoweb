@@ -1,1 +1,0 @@
-{"version":3,"file":"../../../coffee/application/themes/forest.js","sources":["application/themes/forest.coffee"],"names":[],"mappings":"AAAA;EAAA,MAAO,CAAA,QAAA,CAAU,CAAA,SAAA,CAAjB,GAA8B;;EAC9B,MAAO,CAAA,QAAA,CAAU,CAAA,WAAA,CAAjB,GAAgC;AADhC","sourcesContent":["window['colors']['primary'] = '#2c7744'\nwindow['colors']['secondary'] = '#5a3f37'\n"]}
