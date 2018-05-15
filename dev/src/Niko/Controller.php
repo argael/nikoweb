@@ -48,11 +48,12 @@ class Controller
     /**
      * Factory method for singleton class
      *
-     * @param string $address
+     * @param null $address
      * @param int $port
      * @param array $options
-     *
      * @return Controller
+     * @throws ControllerException
+     * @throws ControllerSocketException
      */
     public static function load($address=null, $port=8000, $options=[])
     {
