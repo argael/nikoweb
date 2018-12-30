@@ -37,3 +37,18 @@ $app->get('/list', function () use ($app) {
     $niko = $app['niko']; /* @var \Niko\Controller $niko */
     return $app->json($niko->allActions());
 })->bind('actions.list');
+
+$app->get('/testlayout', function () use ($app) {
+    return $app['twig']->render('index.html.twig', [
+        'locations' => [
+            [
+                'id' => 1,
+                'name' => 'Fake Living',
+                'icon' => 'fa fa-home',
+                'actions' => [
+                    ['id' => 1, 'name' => 'Fake light', 'type' => 'switch', 'state' => 0, 'value' => 0]
+                ]
+            ]
+        ]
+    ]);
+})->bind('actions.testlayout');

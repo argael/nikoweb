@@ -17,11 +17,11 @@ $app->register(new TwigServiceProvider(), [
 
 // --------------------------------------------------------------------------------------------------------------------
 
-require_once ROOT_DIR . '/src/App/Middleware/BeforeMiddleware.php';
+//require_once ROOT_DIR . '/src/App/Middleware/BeforeMiddleware.php';
 
 require_once ROOT_DIR . '/src/App/Controllers/ControllerPublic.php';
 
-require_once ROOT_DIR . '/src/App/Middleware/AfterMiddleware.php';
+//require_once ROOT_DIR . '/src/App/Middleware/AfterMiddleware.php';
 
 // --------------------------------------------------------------------------------------------------------------------
 
